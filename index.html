@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>我的老师今年五十八｜乡村教师老龄化调研报告</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Long+Cang&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-main: #DAD1C5;
+            --dark-text: #27343D;
+            --body-text: #555F62;
+            --emph: #A99A89;
+            --light-gray: #B2BBBC;
+            --tip-gray: #6F787A;
+            --card-bg: #F1EBE2;
+            --mark-bg: rgba(169,154,137,0.15);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft Yahei", Inter, system-ui, -apple-system;
+        }
+        body {
+            background-color: var(--bg-main);
+            color: var(--body-text);
+            line-height: 1.8;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 24px;
+            position: relative;
+        }
+        .page-title-box {
+            text-align: center;
+            margin-bottom: 70px;
+            padding-bottom: 30px;
+            border-bottom: 2px dotted var(--emph);
+        }
+        h1 {
+            color: var(--dark-text);
+            font-size: 62px;
+            margin-bottom:12px;
+            font-family: "Long Cang", cursive; 
+        }
+        .subtitle {
+            color: var(--tip-gray);
+            font-size:18px;
+        }
+        h2 {
+            color: var(--dark-text);
+            font-size:24px;
+            margin:40px 0 22px;
+            padding-left:14px;
+            border-left:4px solid var(--emph);
+        }
+        h2::before{content:"▃ ";color:var(--emph);}
+        .quote-text p {
+            font-family:"Ma Shan Zheng", cursive;
+            font-size: 24px;
+            line-height: 1.9;
+        }
+        p {
+            margin-bottom:18px;
+            text-indent:2em;
+        }
+        .data-mark{
+            background:var(--mark-bg);
+            padding:3px 6px;
+            border-radius:4px;
+            color:var(--dark-text);
+            font-weight:500;
+        }
+        .note-quote{
+            padding:18px 22px;
+            border-left:3px solid var(--emph);
+            background:var(--mark-bg);
+            margin:22px 0;
+        }
+        .chart-box{
+            margin:35px 0;
+            padding:0;
+            background:transparent;
+            border-radius:0;
+        }
+        .intro-layout{display:flex;gap:30px;align-items:flex-start;}
+        .intro-text{flex:1;}
+        .intro-chart{flex:1;}
+        .retire-box{border:2px solid var(--emph);padding:20px;border-radius:16px;}
+        .chapter2-chart{max-width:700px;margin:0 auto;}
+        .chart-row{display:flex;gap:24px;align-items:flex-start;}
+        .chart-half{flex:1;}
+        .interact-card {
+            margin:35px 0;
+            padding:26px;
+            border-radius:20px;
+            background:var(--card-bg);
+            border:#FFE4E1;
+        }
+        .interact-title {
+            color: var(--dark-text);
+            font-size:19px;
+            margin-bottom:20px;
+            display:flex;
+            align-items:center;
+            gap:8px;
+        }
+        input[type="number"],input[type="range"]{
+            background:var(--light-gray);
+            color:var(--dark-text);
+            border:none;
+            padding:8px 10px;
+            border-radius:8px;
+            outline:none;
+        }
+        button{
+            background:var(--emph);
+            color:#fff;
+            border:none;
+            padding:9px 18px;
+            border-radius:8px;
+            cursor:pointer;
+            transition:0.2s;
+            font-weight:500;
+        }
+        button:hover{opacity:0.85;}
+        #retireResult,#teacherCard,#gapDisplay,#peakTimer{
+            background:var(--mark-bg);
+            border-radius:16px;
+            padding:14px;
+        }
+        .data-source{
+            font-size:13px;
+            color:var(--tip-gray);
+        }
+        .split-line{
+            width:60px;height:2px;background:var(--emph);margin:40px auto;
+        }
+        .source-footer{
+            margin-top:90px;
+            padding-top:24px;
+            border-top:1px solid var(--tip-gray);
+            font-size:14px;
+            color:var(--tip-gray);
+            text-align:center;
+        }
+        .scroll-images {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            overflow: hidden;
+        }
+        .scroll-img {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: all 1.5s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            pointer-events: none;
+            border-radius: 20px;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+            object-fit: cover;
+        }
+        .img-teacher {
+            left: 3%;
+            width: 40%;
+            max-width: 360px;
+            z-index: 3;
+            opacity: 1;
+            box-shadow: none;
+        }
+        .img-desk {
+            right: 3%;
+            width: 60%;
+            max-width: 550px;
+            z-index: 1;
+            opacity: 1;
+        }
+        .img-merge {
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: auto;
+            height: auto;
+            max-width: 192%;
+            max-height: 85vh;
+            z-index: 5;
+            opacity: 0;
+            visibility: hidden;
+            border-radius: 28px;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.15);
+            object-fit: contain;
+        }
+        .scroll-container.active .img-teacher {
+            left: 10%;
+            opacity: 0;
+            visibility: hidden;
+            width: 30%;
+        }
+        .scroll-container.active .img-desk {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .scroll-container.active .img-merge {
+            opacity: 1;
+            visibility: visible;
+            width: auto;
+            height: auto;
+            max-width: 94%;
+            max-height: 75vh;
+        }
+        @media (max-width: 720px) {
+            body { padding: 20px 16px; }
+            .img-teacher { width: 42%; left: 2%; max-width: 280px; }
+            .img-desk { width: 52%; right: 2%; max-width: 340px; }
+            .scroll-images { height: 460px; }
+            .scroll-container.active .img-merge { max-width: 96%; max-height: 70vh; }
+        }
+        .chart-box .data-source {
+            margin-top: 8px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--tip-gray);
+        }
+        
+        /* 卡片样式 */
+        .hand-drawn-card {
+            background: #FDF8F0;
+            border-radius: 32px;
+            padding: 28px;
+            margin: 35px 0;
+            border: 2px solid #DCCCB8;
+            box-shadow: 6px 6px 0 rgba(0,0,0,0.05);
+            position: relative;
+        }
+        .hand-drawn-card::before {
+            content: "✎ 数据推演";
+            position: absolute;
+            top: -14px;
+            left: 24px;
+            background: var(--bg-main);
+            padding: 0 12px;
+            font-size: 14px;
+            color: var(--emph);
+            font-family: "Ma Shan Zheng", cursive;
+        }
+        .story-grid {
+            display: flex;
+            gap: 28px;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+        .story-card {
+            flex: 1;
+            min-width: 260px;
+            background: #FFFBF5;
+            border-radius: 28px;
+            padding: 24px 20px;
+            border: 1px solid #E2D5C4;
+            transition: all 0.2s;
+        }
+        .story-card i {
+            font-size: 40px;
+            color: #B28B6F;
+            margin-bottom: 14px;
+            display: inline-block;
+        }
+        .story-card h4 {
+            font-size: 20px;
+            color: var(--dark-text);
+            margin-bottom: 12px;
+        }
+        .btn-group {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        .feedback-box {
+            background: var(--mark-bg);
+            border-radius: 20px;
+            padding: 16px;
+            margin-top: 18px;
+            text-align: center;
+        }
+        .epilogue-box {
+            background: linear-gradient(145deg, #E8DFD2, #DDD2C2);
+            border-radius: 48px;
+            padding: 48px 36px;
+            margin-top: 60px;
+            text-align: center;
+        }
+        .epilogue-box p {
+            text-indent: 0;
+            font-size: 1.1rem;
+        }
+        .signature {
+            font-family: "Long Cang", cursive;
+            font-size: 28px;
+            margin-top: 30px;
+            color: var(--dark-text);
+        }
+        .insight-grid {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+        .insight-item {
+            flex: 1;
+            min-width: 200px;
+            background: rgba(169,154,137,0.1);
+            border-radius: 24px;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 3px solid var(--emph);
+        }
+        .insight-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--dark-text);
+            font-family: "Long Cang", cursive;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 上方内容 100% 保持原样 -->
+<div class="page-title-box">
+    <h1>我的老师今年五十八</h1>
+</div>
+    
+<div class="quote-text">
+    <p>我的老师今年五十八，头发白了一大半。她教了一辈子书，送走的学生一批又一批。去年，她跟我说：“等你们这届毕业，我也该退休了。”</p>
+    <p>我忽然意识到——她不是一个人。整个中国乡村的讲台，都在变老。这种老去不是自然规律，而是一种被忽视的结构性积弊。当一个社会把最需要耐心和精力的教育任务，交给最疲惫的一代人，我们是否问过：这究竟是奉献，还是无奈？</p>
+    <br>
+</div>
+
+<section class="scroll-story-section">
+    <div class="scroll-container" id="scrollStoryContainer">
+        <div class="scroll-images">
+            <img src="photo/01.png" class="scroll-img img-teacher" alt="乡村教师身影" style="object-fit:cover;">
+            <img src="photo/02.jpg" class="scroll-img img-desk" alt="乡村讲台" style="object-fit:cover;">
+            <img src="photo/03.jpg" class="scroll-img img-merge" alt="乡村教师与讲台融合场景">
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="split-line"></div>
+    <div class="intro-layout">
+        <div class="intro-text">
+            <br><br><br>
+            <p>截至2024年底，全国乡村义务教育学校专任教师还有181.77万人。他们分布在全国无数个村庄和乡镇，守着一间间或许只有十几个学生的教室。2024年，乡村小学专任教师净减少11.8万人，而城区小学教师增加了8.78万人。据2024年中国农村教育发展报告所述，相较于城市地区，乡村地区的教育资源较为匮乏，并且目前乡村地区存在教室年龄结构偏大的问题，虽然农村教师队伍不断壮大，但高素质、专业化的教师依然短缺。</p>
+            <p>根据2024年与2023年乡村小学专任教师年龄结构的对比数据，可以看出乡村教师队伍在总量和年龄分布上都发生了明显变化。2024年，乡村小学教师总数为1,339,305人，较2023年减少了约11.8万人，降幅为8.1%。从年龄结构来看，与2023年相比，几乎所有年龄段的教师人数均呈下降趋势，其中24岁及以下、25-29岁、40-44岁和55-59岁降幅较大，分别下降14.6%、12.6%、11.8%和12.8%。唯一出现小幅增长的是45-49岁年龄段，增加了0.6%。总体来看，乡村小学教师队伍在一年内呈现总量收缩、年轻教师减少幅度较大的特点，教师年龄结构略有上移。</p>
+            <p>这组数字背后藏着一个残酷的现实：乡村小学正面临严重的教师断档风险，乡村教师队伍的老龄化已不是潜在趋势，而是正在发生的现实问题。</p>
+        </div>
+        <div class="intro-chart">
+            <div class="chart-box">
+                <div class="flourish-embed flourish-pictogram" data-src="visualisation/29162602"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/29162602/thumbnail" width="100%" alt="pictogram visualization" /></noscript></div>
+                <div class="data-source">数据来源：中华人民共和国教育部2024年教育统计数据</div>
+            </div>
+        </div>
+    </div>
+    <div class="split-line"></div>
+</section>
+
+<section>
+    <h2>两张金字塔，两个世界</h2>
+    <div style="display: flex; gap: 40px; align-items: stretch; flex-wrap: wrap;">
+        <div style="flex: 1.5; min-width: 240px;">
+            <br><br>
+            <p>如果给城镇及乡村小学教师各自画一张2018年至2024年的年龄结构动态图，会发现——那是两个完全不同的形态（见右图）。</p>
+            <p><strong style="color:var(--tip)">左侧（城镇）</strong>：城镇教师年龄结构呈“底部宽、向上渐窄”的年轻扩张型金字塔，24至29岁年轻教师占比接近25%，35岁以下教师占城镇教师总数的近一半，队伍更新能力强。</p>
+            <p><strong style="color:var(--tip)">右侧（乡村）</strong>：乡村教师年龄结构则呈“中间粗、两头细”的纺锤形，35岁及以上中老年教师占比接近70%，24岁及以下年轻教师占比仅为5.5%，年轻层明显偏窄。</p>
+            <div class="note-quote"><p>两相对比，乡村教师队伍年轻力量补充不足、年龄重心上移的问题十分突出，老龄化趋势已经显现。若不及时采取针对性措施加强乡村教师补充与留任，未来乡村小学将面临更为严峻的教师断档风险。</p></div>
+        </div>
+        <div style="flex: 1.5; min-width: 500px;">
+            <div class="chart-box">
+               <div class="flourish-embed flourish-chart" data-src="visualisation/29170507"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/29170507/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
+                <div class="data-source">数据来源：中华人民共和国教育部教育统计数据库</div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="split-line"></div>
+
+<section>
+    <h2>地方样本——乡村小学教师老龄化不是特例，而是普遍</h2>
+    <p>乡村小学教师老龄化并非个别地区的偶然现象，而是一个具有普遍性的结构性问题。数字可能抽象，但具体地区的数据却能真实反映出这一趋势的严峻程度。以四川自贡大安区和云南南华县为例，两地的乡村教师年龄结构均显示出明显的老龄化特征。</p>
+    <div class="chart-row">
+        <div class="chart-half">
+            <div class="chart-box">
+                <div class="flourish-embed flourish-chart" data-src="visualisation/29272028"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/29272028/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
+                <div class="data-source">数据来源：四川省自贡大安区教育体育局</div>
+                <br>
+                <p>可见，四川自贡大安区乡村教师队伍老龄化问题极为严重。数据显示，50周岁及以上的教师占比高达41.2%，接近一半；而35周岁及以下的年轻教师仅占19.0%。中坚力量（36~49周岁）占比为39.8%，同样面临未来几年内陆续进入50岁以上年龄段的压力。</p>
+            </div>
+        </div>
+        <div class="chart-half">
+            <div class="chart-box">
+                <div class="flourish-embed flourish-chart" data-src="visualisation/29272050"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/29272050/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
+                <div class="data-source">数据来源：云南省南华县教育体育局</div>
+                <br>
+                <p>数据显示，云南南华县未来几年内将有超过四成的教师面临退休，若无法及时补充新鲜血液，将出现严重的教师断层和教学力量萎缩问题，乡村教师老龄化问题需要重视。</p>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="split-line"></div>
+
+<!-- 第四章：老去的速度，正在加快 -->
+<section>
+    <h2>老去的速度，正在加快</h2>
+    <p>连续七年追踪乡村教师年龄结构，一条持续上扬的曲线清晰可见——<strong class="data-mark">50岁以上教师占比正在以不可逆的速度攀升</strong>。这不是缓慢的自然老化，而是一次加速的结构性倾斜。</p>
+
+    <h3 style="margin-top:32px;">一、七年趋势：从21%到24%</h3>
+    <div class="chart-box">
+        <p style="text-align:center;margin-bottom:12px;">图表6：2018-2024年乡村教师50岁以上占比变化趋势图</p>
+        <div class='tableauPlaceholder' id='viz1780743658432' style='position: relative; width:100%;'>
+            <noscript>
+                <a href="https://public.tableau.com/views/2018-202450/2018-202450?:language=zh-CN&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link">
+                    <img alt="2018-2024年乡村教师50岁以上占比变化趋势图" 
+                         src="https://public.tableau.com/static/images/20/2018-202450/2018-202450/1_rss.png" 
+                         style="border: none; width:100%;" />
+                </a>
+            </noscript>
+            <object class='tableauViz' style='display:none;'>
+                <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+                <param name='embed_code_version' value='3' />
+                <param name='site_root' value='' />
+                <param name='name' value='2018-202450/2018-202450' />
+                <param name='tabs' value='no' />
+                <param name='toolbar' value='yes' />
+                <param name='static_image' value='https://public.tableau.com/static/images/20/2018-202450/2018-202450/1.png' />
+                <param name='animate_transition' value='yes' />
+                <param name='display_static_image' value='yes' />
+                <param name='display_spinner' value='yes' />
+                <param name='display_overlay' value='yes' />
+                <param name='display_count' value='yes' />
+                <param name='language' value='zh-CN' />
+            </object>
+        </div>
+    </div>
+<div class="data-source">数据来源：中华人民共和国教育部教育统计数据库</div>
+    <p style="text-align:center;margin-bottom:10px;font-weight:bold;">数据解读</p>
+    <p>2018年，乡村教师中50岁以上者占<strong class="data-mark">21%</strong>，约每5人中1人年过半百；到2024年，这一比例升至<strong class="data-mark">24%</strong>，相当于<strong class="data-mark">每4位乡村教师中就有1位超过50岁</strong>。六年净增3个百分点，且后期上升斜率加大——老去的速度，正在加快。</p>
+    <p>以2024年全国乡村义务教育专任教师<strong class="data-mark">181.77万人</strong>估算，50岁以上教师已超过<strong class="data-mark">43万人</strong>。未来五年，这批教师将集中退休，届时乡村教师队伍将面临巨大的“空档期”。</p>
+
+    <h3 style="margin-top:32px;">二、城乡差距：8.9个百分点的鸿沟</h3>
+    <p>老龄化并非乡村独有，但城乡之间的差距长期固化，才是问题的症结。</p>
+
+    <div style="display:flex;gap:30px;align-items:flex-start;margin:30px 0;flex-wrap:wrap;">
+        <div style="flex:1;min-width:420px;">
+            <p style="text-align:center;margin-bottom:10px;font-weight:bold;">数据解读</p>
+            <p>2024年，乡村50岁以上教师占比高达<strong class="data-mark">23.8%</strong>，城区仅为<strong class="data-mark">14.9%</strong>，相差<strong class="data-mark">8.9个百分点</strong>。换算成直观感受：城区每6-7位教师中有1人超过50岁，而乡村每4位教师中就有1人。</p>
+            <p>这一差距多年来未见收窄，说明年轻教师的流向严重偏向城区，乡村学校被迫成为“老龄化承接地”。<strong class="data-mark">年龄结构的失衡，本质是资源与机会分配失衡的缩影。</strong></p>
+        </div>
+        <div style="flex:1;min-width:420px;">
+            <div class="interact-card" style="margin:0;">
+                <div class="interact-title"><i class="fas fa-chart-simple"></i> 城乡老龄化差距有多大？</div>
+                <input type="range" id="yearSlider" min="2018" max="2024" step="1" value="2024" style="width: 100%; margin: 10px 0;">
+                <div style="display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--tip-gray);">
+                    <span>2018</span><span>2019</span><span>2020</span><span>2021</span><span>2022</span><span>2023</span><span>2024</span>
+                </div>
+                <div id="gapDisplay" style="margin-top: 20px;"></div>
+                <div class="data-source"></div>
+            </div>
+        </div>
+    </div>
+
+    <h3 style="margin-top:32px;">三、恶性循环正在形成</h3>
+    <div class="note-quote" style="text-indent:0;">
+        <p style="text-indent:0;margin:0;">年轻教师外流 → 队伍老化 → 更难吸引新人加入</p>
+    </div>
+    <p>乡村教师流失与老龄化相互加剧。2024年，乡村小学专任教师净减少<strong class="data-mark">11.8万人</strong>，而城区小学教师增加了<strong class="data-mark">8.78万人</strong>。一增一减之间，乡村教育的“造血能力”持续衰退。</p>
+    <p>当一所学校的教师平均年龄接近50岁，不仅意味着未来几年大量岗位将突然空缺，更意味着<strong class="data-mark">信息技术应用、课程改革适应力、学生心理沟通</strong>等层面的系统弱势。这不是某个地区的特例，而是全国乡村教育的普遍现实。</p>
+</section>
+
+<div class="split-line"></div>
+
+<!-- 第五章：退休高峰，近在眼前 -->
+<section>
+    <h2>退休高峰，近在眼前</h2>
+    <p>前文已展示乡村教师队伍加速老化、年轻力量补充不足。若将现有年龄结构与未来十年退休节点叠加，一条陡峭的“退休高峰曲线”便浮现出来——师资缺口已不是预警，而是倒计时。</p>
+
+    <h3 style="margin-top:32px;">一、十年预测：每年15-20万人集中离岗</h3>
+    <div style="display:flex;gap:30px;align-items:flex-start;margin:30px 0;flex-wrap:wrap;">
+        <div style="flex:1;min-width:420px;">
+            <p style="text-align:center;margin-bottom:10px;font-weight:bold;">数据解读</p>
+            <p>从2025年起，乡村教师退休人数将快速攀升。2026年达到峰值<strong class="data-mark">20.2万人</strong>，随后几年虽略有回落，但直至2030年，每年退休规模仍保持在15万人以上。</p>
+            <p>退休高峰期划定为<strong class="data-mark">2026-2030年</strong>，五年间，平均每年约<strong class="data-mark">15~20万</strong>教师离岗，累计流失近<strong class="data-mark">80万人</strong>。</p>
+            <p>以2024年全国乡村义务教育专任教师<strong class="data-mark">181.77万人</strong>为基数，这意味着五年内将减少近<strong class="data-mark">44%</strong>的在岗教师。</p>
+        </div>
+        <div style="flex:1;min-width:420px;">
+            <div class="chart-box" style="margin:0;">
+                <p style="text-align:center;margin-bottom:12px;">图表7：2025-2034年新增退休乡村教师人数预测（万人）</p>
+                <img src="photo/04.png" alt="图表7：2025-2034年新增退休乡村教师人数预测（万人）" style="width:100%;object-fit:cover;border-radius: 16px;background:#F1EBE2;padding:8px;">
+            </div>
+        </div>
+    </div>
+
+    <h3 style="margin-top:32px;">二、退休高峰期的真实冲击</h3>
+    <p>80万人退休，对乡村教育意味着什么？</p>
+    <ul style="padding-left:2em;text-indent:0;margin:16px 0;line-height:1.8;">
+        <li>每所乡村小学平均失去2-3名骨干教师；</li>
+        <li>大量偏远教学点可能因无人接班而被迫撤并；</li>
+        <li>在职教师工作量翻倍，一人包班、跨年级教学成为常态。</li>
+    </ul>
+    <p>退休高峰与年轻教师流失形成叠加效应。2024年乡村小学教师已净减少<strong class="data-mark">11.8万人</strong>，而未来五年退休规模是这一数字的6-7倍。</p>
+</section>
+
+<div class="split-line"></div>
+
+<!-- 第六章：一张地图，看清十年师资流动 -->
+<section>
+    <h2>一张地图，看清十年师资流动</h2>
+    <p>前文揭示了乡村教师加速老化与退休高峰的叠加危机。但这场危机并非均匀分布——过去十年，不同省份的乡村教师总量已走出截然不同的轨迹。一张热力图，足以看清谁在失血、谁在勉强支撑。</p>
+
+    <h3 style="margin-top:32px;">一、十年变色：蓝色退潮，红色蔓延</h3>
+    <p style="text-align:center;margin-bottom:10px;font-weight:bold;">图例说明</p>
+    <p style="text-indent:0;">🔴红色=乡村教师总数小于20万人</p>
+    <p style="text-indent:0;">🔵蓝色=乡村教师总数大于等于20万人</p>
+
+    <div class="chart-box">
+        <p style="text-align:center;margin-bottom:12px;">图表8：2015-2024年各省乡村教师总数热力图</p>
+        <div class='tableauPlaceholder' id='viz1780916848373' style='position: relative; width:100%;'>
+            <noscript>
+                <a href="https://public.tableau.com/views/20152024_17808973667940/20152024?:language=zh-CN&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link">
+                    <img alt="2015——2024年各省教师总数热力图" 
+                         src="https://public.tableau.com/static/images/20/20152024_17808973667940/20152024/1_rss.png" 
+                         style="border: none; width:100%;" />
+                </a>
+            </noscript>
+            <object class='tableauViz' style='display:none;'>
+                <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+                <param name='embed_code_version' value='3' />
+                <param name='site_root' value='' />
+                <param name='name' value='20152024_17808973667940/20152024' />
+                <param name='tabs' value='no' />
+                <param name='toolbar' value='yes' />
+                <param name='static_image' value='https://public.tableau.com/static/images/20/20152024_17808973667940/20152024/1.png' />
+                <param name='animate_transition' value='yes' />
+                <param name='display_static_image' value='yes' />
+                <param name='display_spinner' value='yes' />
+                <param name='display_overlay' value='yes' />
+                <param name='display_count' value='yes' />
+                <param name='language' value='zh-CN' />
+            </object>
+        </div>
+        <script type='text/javascript'>
+            var divElement = document.getElementById('viz1780916848373');
+            var vizElement = divElement.getElementsByTagName('object')[0];
+            vizElement.style.width='100%';
+            vizElement.style.height=(divElement.offsetWidth*0.75)+'px';
+            var scriptElement = document.createElement('script');
+            scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+            vizElement.parentNode.insertBefore(scriptElement, vizElement);
+        </script>
+    </div>
+<div class="data-source">数据来源：中华人民共和国教育部教育统计数据库</div>
+<br>
+    <p>十年之间，地图上的蓝色区域大面积消失，红色从零星斑点连成片。2015年尚有多个省份保持20万以上规模，到2024年，达标的省份屈指可数。东北、中部、西南是“红色化”最剧烈的三个板块：</p>
+    <ul style="padding-left:2em;text-indent:0;margin:16px 0;line-height:1.8;">
+        <li>东北：乡村教师总量断崖式下降，蓝色完全消失，部分省份缩减超<strong class="data-mark">40%</strong>；</li>
+        <li>中部：河南、安徽、湖南等人口大省跌破20万红线；</li>
+        <li>西南：云南、贵州红色加深，山区教师外流加速。</li>
+    </ul>
+    <p>东部个别城市总量“略有上涨”，但拆解数据发现：增长主要来自城区扩张，本土乡村教师数仍在持续缩减。</p>
+
+    <h3 style="margin-top:32px;">二、双重抽空：退休流失叠加存量外流</h3>
+    <p>师资流动不是随机现象，而是长期结构失衡的结果。三重推力将乡村教师——尤其是年轻人——持续推向城区或东部：</p>
+    <ul style="padding-left:2em;text-indent:0;margin:16px 0;line-height:1.8;">
+        <li>薪资落差：乡村教师实际收入低于县城同工龄教师；</li>
+        <li>通道狭窄：职称晋升难、培训资源缺、评优机会有限；</li>
+        <li>环境艰苦：寄宿制管理负担重、留守儿童比例高。</li>
+    </ul>
+    <p>这三股力量形成“越流失越老，越老越流失”的闭环。更严峻的是，退休高峰与存量外流正在形成“双重抽空”：</p>
+    <div class="note-quote" style="text-indent:0;">
+        <p style="margin:0;text-indent:0;">退休高峰（第五章）：2026-2030年每年15-20万人自然离岗；</p>
+        <p style="margin:8px 0 0;text-indent:0;">存量外流（本章）：东北、中部、西南每年净流失数万人。</p>
+    </div>
+    <p>以某中部农业大县为例：2023年乡村教师退休<strong class="data-mark">320人</strong>，调离县城<strong class="data-mark">180</strong>人，新招聘仅<strong class="data-mark">110人</strong>——净减少<strong class="data-mark">390人</strong>，相当于关闭4所完全小学。在红色省份，退休与外流同时抽空教师队伍，补充速度远不及缺口。</p>
+</section>
+
+<div class="split-line"></div>
+
+<!-- ========= 第七章：比数据更尖锐的现实 ========= -->
+<section>
+    <h2>比数据更尖锐的现实</h2>
+    
+    <div class="story-grid">
+        <div class="story-card">
+            <i class="fas fa-person-walking-arrow-right"></i>
+            <h4>年轻教师补充不足</h4>
+            <p>根据教育部统计数据，2024年乡村小学专任教师中24岁及以下教师占比仅为5.5%，而城区这一比例为15.3%。特岗教师三年服务期满后留任率在不同地区差异显著，部分地区低于40%。“下不去、留不住”的结构性矛盾持续存在。</p>
+        </div>
+        <div class="story-card">
+            <i class="fas fa-chalkboard-user"></i>
+            <h4>高龄教师仍在坚守</h4>
+            <p>2024年，乡村小学50岁以上教师占比达到23.8%。部分地区“银龄讲学计划”返聘教师成为补充师资的重要手段。部分高龄教师因无人接替，在退休后仍继续承担教学任务，反映出师资缺口的现实压力。</p>
+        </div>
+        <div class="story-card">
+            <i class="fas fa-child"></i>
+            <h4>教学质量面临挑战</h4>
+            <p>老龄化导致教师知识结构更新缓慢，2024年乡村小学体育、音乐、美术等学科专职教师配备率显著低于城区。一人兼任多门课程的情况在村小依然普遍，课程开设质量与素质教育要求存在差距。</p>
+        </div>
+    </div>
+
+    <div class="insight-grid">
+        <div class="insight-item">
+            <div class="insight-number">-11.8万</div>
+            <div>2024年乡村小学教师净减少</div>
+        </div>
+        <div class="insight-item">
+            <div class="insight-number">23.8%</div>
+            <div>乡村教师50岁以上占比</div>
+        </div>
+        <div class="insight-item">
+            <div class="insight-number">14.9%</div>
+            <div>城区教师50岁以上占比</div>
+        </div>
+        <div class="insight-item">
+            <div class="insight-number">80万+</div>
+            <div>未来五年预计退休人数</div>
+        </div>
+    </div>
+
+    <div class="hand-drawn-card">
+        <div class="interact-title"><i class="fa-regular fa-compass"></i> 情境模拟：师资缺口的现实困境</div>
+        <p style="text-indent:0;">基于2024年乡村教师年龄结构数据推算：在年轻教师流入速度不变的假设下，未来五年将有超过40%的现有教师因退休而离开岗位。这并非某个人的选择，而是整体年龄结构带来的必然结果。</p>
+        <div class="btn-group">
+            <button id="choiceStayBtn"><i class="fas fa-heart"></i> 补充年轻教师（理想情况）</button>
+            <button id="choiceLeaveBtn"><i class="fas fa-road"></i> 维持现有流入速度</button>
+        </div>
+        <div id="choiceFeedback" class="feedback-box" style="display: none;"></div>
+    </div>
+
+    <div class="hand-drawn-card">
+        <div class="interact-title"><i class="fas fa-chart-line"></i> 数据推演：未来五年教师总量变化</div>
+        <p style="text-indent:0;">以2024年乡村小学专任教师133.9万人为基数，按当前年龄结构及退休政策计算：</p>
+        <button id="simulateShortageBtn"><i class="fas fa-eye"></i> 查看推演结果</button>
+        <div id="shortageResult" class="feedback-box" style="display: none; margin-top: 20px;"></div>
+    </div>
+
+    <p>乡村教师老龄化是多重结构性因素共同作用的结果：城乡发展不均衡、教师待遇差距、职业发展通道差异等。这不是个别地区或个人的问题，而是需要系统性政策回应的发展课题。如何吸引和留住年轻教师、如何支持高龄教师更好地发挥作用、如何保障乡村孩子的受教育质量，都是亟待解决的问题。</p>
+    
+    <div class="note-quote" style="background: #E8DFD2; margin-top: 30px;">
+        <p style="text-indent:0; font-weight: 600; margin-bottom: 12px;">📋 从数据到行动：几点思考</p>
+        <p style="text-indent:0; margin-bottom: 8px;">✓ 扩大“特岗计划”规模，提高乡村教师岗位津贴标准</p>
+        <p style="text-indent:0; margin-bottom: 8px;">✓ 建立城乡教师常态化交流轮岗机制</p>
+        <p style="text-indent:0; margin-bottom: 8px;">✓ 完善乡村教师职称评聘倾斜政策，畅通晋升通道</p>
+        <p style="text-indent:0; margin-bottom: 8px;">✓ 加强定向培养和本土教师招聘，提高岗位吸引力</p>
+        <p style="text-indent:0;">✓ 改善乡村学校办学条件和教师生活保障</p>
+    </div>
+</section>
+
+<!-- 尾声 -->
+<section>
+    <div class="epilogue-box">
+        <h2 style="border-left: none; text-align: center; margin-top: 0; font-size: 32px;">让讲台上那个五十八岁的身影，不是最后一个</h2>
+        
+        <div style="max-width: 800px; margin: 0 auto;">
+            <p>数据会说话，但数据背后是一个个真实的教师、一间间乡村教室和一代代孩子的成长。</p>
+            <p>这份报告里的每一个数字，都来自教育部公开的统计数据。181.77万乡村教师、23.8%的老龄化比例、11.8万人的年度净减少——这些数字共同勾勒出当前乡村教师队伍的整体轮廓。</p>
+            <p>我们并不缺乏对乡村教育的关注，也不缺乏改善的努力。从“特岗计划”到“银龄讲学”，从乡镇补贴到职称倾斜，政策一直在完善。但城乡之间的差距依然存在，年轻教师的补充速度依然跟不上退休的速度，乡村学校的结构性困境尚未得到根本扭转。</p>
+            
+            <div style="margin: 32px 0;">
+                <div style="height: 2px; width: 80px; background: var(--emph); margin: 20px auto;"></div>
+            </div>
+            
+            <p>未来的五年至关重要。超过43万名50岁以上的乡村教师将陆续到达退休年龄。如果我们能在这段时间内，有效提升乡村教师岗位吸引力、畅通职业发展通道、改善工作生活条件，或许就能让更多年轻人愿意走上乡村讲台。</p>
+            <p>没有年轻教师的加入，老教师的坚守终将独木难支；没有系统的政策支持，个体的奉献难以持续。乡村教育需要的不仅是情怀，更是制度性的托举和资源的下沉。</p>
+            
+            <p><strong>让讲台上那个五十八岁的身影，不是最后一个。</strong> 这不仅是一句感性的期许，更是一个理性的社会发展命题。每一个乡村孩子都值得拥有稳定、优质的教育，而教师，正是这个承诺的第一兑现人。</p>
+            
+            <div class="signature">
+                —— 基于教育部公开数据的调研报告
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="source-footer">
+    数据来源：教育部历年《中国教育统计年鉴》、东北师范大学《中国农村教育发展报告》、国家统计局、各省教育厅公开数据。
+</div>
+
+<script>
+// 滑动动画
+const storyContainer = document.getElementById('scrollStoryContainer');
+let scrollActive = false;
+let ticking = false;
+let lastScrollY = window.scrollY;
+
+function handleScrollDirection() {
+    const currentScrollY = window.scrollY;
+    const delta = currentScrollY - lastScrollY;
+    const containerRect = storyContainer.getBoundingClientRect();
+    const isInView = containerRect.top < window.innerHeight - 100 && containerRect.bottom > 100;
+    if (!isInView) {
+        lastScrollY = currentScrollY;
+        return;
+    }
+    if (delta > 8 && !scrollActive) {
+        storyContainer.classList.add('active');
+        scrollActive = true;
+    } 
+    else if (delta < -8 && scrollActive) {
+        storyContainer.classList.remove('active');
+        scrollActive = false;
+    }
+    lastScrollY = currentScrollY;
+}
+
+window.addEventListener('scroll', function() {
+    if (!ticking) {
+        requestAnimationFrame(() => {
+            handleScrollDirection();
+            ticking = false;
+        });
+        ticking = true;
+    }
+});
+
+storyContainer.classList.remove('active');
+scrollActive = false;
+
+// Tableau图表1
+var divElement1 = document.getElementById('viz1780743658432');
+if(divElement1) {
+    var vizElement1 = divElement1.getElementsByTagName('object')[0];
+    if(vizElement1) {
+        vizElement1.style.width='100%';
+        vizElement1.style.height=(divElement1.offsetWidth*0.75)+'px';
+        var scriptElement1 = document.createElement('script');
+        scriptElement1.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+        vizElement1.parentNode.insertBefore(scriptElement1, vizElement1);
+    }
+}
+
+// 年份滑块
+const gapData={2018:[21.52,11.52],2019:[20.86,11.52],2020:[20.50,14.14],2021:[22.8,13.5],2022:[23.2,14.2],2023:[23.5,14.5],2024:[23.8,14.9]};
+const slider=document.getElementById('yearSlider');
+const gapDiv=document.getElementById('gapDisplay');
+function updateGap(){
+    let y=slider.value;
+    let [r,u]=gapData[y];
+    let g=(r-u).toFixed(1);
+    gapDiv.innerHTML=`
+    <div style="display:flex;justify-content:space-around;margin-bottom:10px;">
+    <div><span style="color:var(--emph)">● 乡村</span><br><span style="font-size:2rem;color:var(--dark-text)">${r}%</span></div>
+    <div><span style="color:var(--light-gray)">● 城区</span><br><span style="font-size:2rem;color:var(--tip-gray)">${u}%</span></div></div>
+    <div>📏 ${y}年差值：<strong style="color:var(--emph)">${g}个百分点</strong></div>`;
+}
+if(slider) slider.addEventListener('input',updateGap);
+if(updateGap) updateGap();
+
+// 第七章互动1
+const stayBtn = document.getElementById('choiceStayBtn');
+const leaveBtn = document.getElementById('choiceLeaveBtn');
+const feedbackDiv = document.getElementById('choiceFeedback');
+if(stayBtn) {
+    stayBtn.onclick = () => {
+        feedbackDiv.style.display = 'block';
+        feedbackDiv.innerHTML = '📈 理想情况模拟：若每年新增年轻教师数量提升至退休人数的1.2倍，教师总量可在2030年趋于稳定。这需要特岗计划扩招、待遇提升、编制倾斜等多方面政策协同。';
+    };
+    leaveBtn.onclick = () => {
+        feedbackDiv.style.display = 'block';
+        feedbackDiv.innerHTML = '📉 维持现状模拟：按近年流入速度，到2030年乡村小学教师总数预计降至100万人以下，降幅超过25%。年龄中位数将上升至47岁以上，师资补充压力持续加大。';
+    };
+}
+
+// 互动2
+const simBtn = document.getElementById('simulateShortageBtn');
+const shortageDiv = document.getElementById('shortageResult');
+if(simBtn) {
+    simBtn.onclick = () => {
+        shortageDiv.style.display = 'block';
+        shortageDiv.innerHTML = `
+            <strong>📊 基于2024年年龄结构的推演结果</strong><br><br>
+            📍 2024年乡村小学专任教师：133.93万人<br>
+            📍 50岁以上教师占比：23.8%（约31.9万人）<br>
+            📍 按现行退休政策，2025-2030年间累计退休人数：约78-82万人<br>
+            📍 同期若保持近年平均招聘规模（约每年6-8万人），净减少约35-45万人
+        `;
+    };
+}
+</script>
+</body>
+</html>
